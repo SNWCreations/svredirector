@@ -33,7 +33,7 @@ public class BuilderTransformer implements ClassFileTransformer {
                 ClassPool classPool = ClassPool.getDefault();
                 CtClass builderClass = classPool.get("org.spigotmc.builder.Builder");
                 CtMethod get = builderClass.getDeclaredMethod("get");
-                get.insertBefore("{url = url.replaceFirst(\"https://hub.spigotmc.org/versions/\", \"https://cdn.jsdelivr.net/gh/SNWCreations/spigotversions/\");}");
+                get.insertBefore("{url = url.replaceFirst(\"https://hub.spigotmc.org/versions/\", \"https://cdn.jsdelivr.net/gh/SNWCreations/spigotversions@main/\");}");
                 builderClass.detach();
                 System.out.println("Success! We will launch BuildTools. Enjoy!");
                 System.out.println();
