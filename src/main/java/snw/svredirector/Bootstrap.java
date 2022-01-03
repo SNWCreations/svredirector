@@ -18,10 +18,11 @@
 package snw.svredirector;
 
 import java.lang.instrument.Instrumentation;
+import java.util.Objects;
 
 public class Bootstrap {
     public static void premain(String agentArgs, Instrumentation instrumentation) {
         System.out.println("Loading SVRedirector, by SNWCreations");
-        instrumentation.addTransformer(new BuilderTransformer());
+        instrumentation.addTransformer(new BuilderTransformer((Objects.equals(agentArgs, "fastgit"))));
     }
 }

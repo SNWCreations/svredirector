@@ -25,6 +25,12 @@ import java.security.ProtectionDomain;
 import java.util.Objects;
 
 public class BuilderTransformer implements ClassFileTransformer {
+    private boolean isGoToFastGit;
+
+    public BuilderTransformer(boolean isGoToFastGit) {
+        this.isGoToFastGit = isGoToFastGit;
+    }
+
     @Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) {
         if (Objects.equals(className, "org/spigotmc/builder/Builder")) {
@@ -33,7 +39,7 @@ public class BuilderTransformer implements ClassFileTransformer {
                 ClassPool classPool = ClassPool.getDefault();
                 CtClass builderClass = classPool.get("org.spigotmc.builder.Builder");
                 CtMethod get = builderClass.getDeclaredMethod("get");
-                get.insertBefore("{url = url.replaceFirst(\"https://hub.spigotmc.org/versions/\", \"https://cdn.jsdelivr.net/gh/SNWCreations/spigotversions@main/data/\");}");
+                get.insertBefore("{url = url.replaceFirst(\"https://hub.spigotmc.org/versions/\", \"https://" + (isGoToFastGit ? "raw.fastgit.org" : "cdn.jsdelivr.net/gh") + "/SNWCreations/spigotversions" + (isGoToFastGit ? "/" : "@") + "main/data/\");}");
                 builderClass.detach();
                 System.out.println("Success! We will launch BuildTools. Enjoy!");
                 System.out.println();
