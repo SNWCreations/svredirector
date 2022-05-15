@@ -17,12 +17,27 @@
 
 package snw.svredirector;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.io.InputStreamReader;
 import java.lang.instrument.Instrumentation;
 import java.util.Objects;
 
 public class Bootstrap {
     public static void premain(String agentArgs, Instrumentation instrumentation) {
         System.out.println("Loading SVRedirector, by SNWCreations");
-        instrumentation.addTransformer(new BuilderTransformer((Objects.equals(agentArgs, "fastgit"))));
+
+        if (agentArgs == null) {
+            agentArgs = "ghproxy";
+        }
+
+        final JsonObject GITHUB_MIRROR_DATA = JsonParser.parseReader(
+                new InputStreamReader(
+                        Objects.requireNonNull(Bootstrap.class.getResourceAsStream("/githubproxies.json"))
+                )
+        ).getAsJsonObject();
+
+        instrumentation.addTransformer(new BuilderTransformer(GITHUB_MIRROR_DATA.get(agentArgs).getAsString()));
     }
 }

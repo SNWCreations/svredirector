@@ -24,11 +24,14 @@ import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
 import java.util.Objects;
 
-public class BuilderTransformer implements ClassFileTransformer {
-    private boolean isGoToFastGit;
+import static snw.svredirector.Util.redirectGithubToMirror;
 
-    public BuilderTransformer(boolean isGoToFastGit) {
-        this.isGoToFastGit = isGoToFastGit;
+public class BuilderTransformer implements ClassFileTransformer {
+
+    private final String format;
+
+    public BuilderTransformer(String format) {
+        this.format = format; // format will be used to replace https://hub.spigotmc.org/versions/ .
     }
 
     @Override
@@ -39,7 +42,9 @@ public class BuilderTransformer implements ClassFileTransformer {
                 ClassPool classPool = ClassPool.getDefault();
                 CtClass builderClass = classPool.get("org.spigotmc.builder.Builder");
                 CtMethod get = builderClass.getDeclaredMethod("get");
-                get.insertBefore("{url = url.replaceFirst(\"https://hub.spigotmc.org/versions/\", \"https://" + (isGoToFastGit ? "raw.fastgit.org" : "cdn.jsdelivr.net/gh") + "/SNWCreations/spigotversions" + (isGoToFastGit ? "/" : "@") + "main/data/\");}");
+                get.insertBefore("{url = url.replaceFirst(\"https://hub.spigotmc.org/versions/\", \"" +
+                        redirectGithubToMirror("https://raw.githubusercontent.com/SNWCreations/spigotversions/main/data", format) + "/" +
+                        "\");}");
                 builderClass.detach();
                 System.out.println("Success! We will launch BuildTools. Enjoy!");
                 System.out.println();

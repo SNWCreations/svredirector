@@ -1,0 +1,9 @@
+{
+  "no_redirect": "{ORIGINAL_URL}",
+  "ghproxy": "https://ghproxy.com/{ORIGINAL_URL}",
+  "do": "https://github.do/{ORIGINAL_URL}",
+  "iqiq": "https://raw.iqiq.io/{USER}/{REPO}/{BRANCH}/{FILE}",
+  "monika": "https://hk1.monika.love/{USER}/{REPO}/{BRANCH}/{FILE}",
+  "staticaly": "https://cdn.staticaly.com/gh/{USER}/{REPO}/{BRANCH}/{FILE}",
+  "unnamed": "https://raw.githubusercontents.com/{USER}/{REPO}/{BRANCH}/{FILE}"
+}
