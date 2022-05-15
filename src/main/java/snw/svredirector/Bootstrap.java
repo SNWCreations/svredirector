@@ -26,7 +26,7 @@ import java.util.Objects;
 
 public class Bootstrap {
     public static void premain(String agentArgs, Instrumentation instrumentation) {
-        System.out.println("Loading SVRedirector, by SNWCreations");
+        System.out.println("正在加载 SVRedirector, 作者 SNWCreations");
 
         if (agentArgs == null) {
             agentArgs = "ghproxy";

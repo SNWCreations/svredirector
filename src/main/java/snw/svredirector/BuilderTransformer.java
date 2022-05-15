@@ -37,7 +37,7 @@ public class BuilderTransformer implements ClassFileTransformer {
     @Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) {
         if (Objects.equals(className, "org/spigotmc/builder/Builder")) {
-            System.out.println("Transforming org.spigotmc.builder.Builder ...");
+            System.out.println("正在修改 org.spigotmc.builder.Builder ...");
             try {
                 ClassPool classPool = ClassPool.getDefault();
                 CtClass builderClass = classPool.get("org.spigotmc.builder.Builder");
@@ -46,11 +46,11 @@ public class BuilderTransformer implements ClassFileTransformer {
                         redirectGithubToMirror("https://raw.githubusercontent.com/SNWCreations/spigotversions/main/data", format) + "/" +
                         "\");}");
                 builderClass.detach();
-                System.out.println("Success! We will launch BuildTools. Enjoy!");
+                System.out.println("成功! BuildTools 即将启动。享受构建过程吧! :D");
                 System.out.println();
                 return builderClass.toBytecode();
             } catch (IOException | NotFoundException | CannotCompileException e) {
-                System.err.println("Failed to inject. Please contact the author with this stack trace.");
+                System.err.println("修改失败! 请将以下内容复制并到仓库新建 Issue 来联系作者。");
                 e.printStackTrace();
                 System.exit(1);
             }
