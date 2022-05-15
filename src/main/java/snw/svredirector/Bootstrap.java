@@ -40,4 +40,13 @@ public class Bootstrap {
 
         instrumentation.addTransformer(new BuilderTransformer(GITHUB_MIRROR_DATA.get(agentArgs).getAsString()));
     }
+
+    public static void main(String[] args) {
+        final JsonObject GITHUB_MIRROR_DATA = JsonParser.parseReader(
+                new InputStreamReader(
+                        Objects.requireNonNull(Bootstrap.class.getResourceAsStream("/githubproxies.json"))
+                )
+        ).getAsJsonObject();
+        System.out.println("已知的 Github 镜像名称: " + String.join(", ", GITHUB_MIRROR_DATA.keySet()));
+    }
 }

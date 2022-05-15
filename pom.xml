@@ -30,6 +30,7 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
+                            <Main-Class>snw.svredirector.Bootstrap</Main-Class>
                             <Premain-Class>snw.svredirector.Bootstrap</Premain-Class>
                             <build-time>${maven.build.timestamp}</build-time>
                         </manifestEntries>
