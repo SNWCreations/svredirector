@@ -17,4 +17,4 @@
 下载这个仓库的代码，自行安装 Maven 构建 (mvn clean package 即可)。
 
 ## 版权
-版权所有 (C) 2021 SNWCreations。本软件是自由软件，使用 GPLv3 授权。
+版权所有 (C) 2021, 2022 SNWCreations。本软件是自由软件，使用 GPLv3 授权。
